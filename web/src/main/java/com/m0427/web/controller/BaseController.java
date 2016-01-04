@@ -15,8 +15,13 @@
  */
 package com.m0427.web.controller;
 
+import javax.annotation.Resource;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.m0427.web.service.impl.UserServiceImpl;
 
 /**
  * <strong>Title : BaseController.java<br></strong>
@@ -34,12 +39,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * <br>
  */
 @Controller
-@RequestMapping("/manage/*")
+@RequestMapping("/security/*")
 public class BaseController {
   
-  @RequestMapping("index")
-  public String index()
+  @Resource
+  private UserServiceImpl userService;
+  
+  @RequestMapping("resign")
+  public String index(String userName,String password,Model model)
   {
+    String name="zhang";
+    model.addAttribute("name", name);
     return "500";
   }
 }
