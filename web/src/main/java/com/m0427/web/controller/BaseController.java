@@ -17,10 +17,14 @@ package com.m0427.web.controller;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.m0427.web.model.AjaxResult;
+import com.m0427.web.model.User;
 import com.m0427.web.service.impl.UserServiceImpl;
 
 /**
@@ -45,11 +49,21 @@ public class BaseController {
   @Resource
   private UserServiceImpl userService;
   
-  @RequestMapping("resign")
-  public String index(String userName,String password,Model model)
+  @RequestMapping("redirectRegister")
+  public String redirectRegister(Model model)
   {
-    String name="zhang";
-    model.addAttribute("name", name);
-    return "500";
+	  return "security/register";
+  }
+  
+  @RequestMapping("register")
+  @ResponseBody
+  public AjaxResult index(User user,Model model) throws Exception
+  {
+    if(StringUtils.isBlank(user.getUserName())||StringUtils.isBlank(user.getPassword()))
+    {
+    	return new AjaxResult("用户名或密码不能为空！");
+    }
+    userService.insertUser(user);
+    return new AjaxResult("注册成功");
   }
 }

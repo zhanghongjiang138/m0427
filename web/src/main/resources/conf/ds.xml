@@ -100,7 +100,7 @@
 		</tx:advice>
 		<aop:config>
 			<aop:advisor advice-ref="txadvice"
-				pointcut="execution(* com.m0427.*..*.service..*(..)), execution(* com.m0427.*..*.webservice..*(..)), execution(* cn.evun.*..*.engine.*(..))"
+				pointcut="execution(* com.m0427.*..*.service..*(..)), execution(* com.m0427.*..*.webservice..*(..))"
 				order="1" />
 		</aop:config>
 	</beans>
