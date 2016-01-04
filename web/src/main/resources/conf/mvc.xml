@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+	<!-- 自动扫描且只扫描@Controller -->
+	<context:component-scan base-package="com.m0427.*.controller" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+
+	<!-- 自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter两个bean,是spring MVC为@Controllers分发请求所必须的。-->
+	<!--<mvc:annotation-driven/>-->
+	
+	<!-- annotation 使用注解(默认)的方式映射适配器 -->
+	<bean id="handlerMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	
+	
+	<!-- 将无法mapping到Controller的path交给default servlet handler处理 -->
+	<mvc:default-servlet-handler/>
+    
+    
+    <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+		<list>
+			<ref bean="mappingJacksonHttpMessageConverter" />
+			<bean class = "org.springframework.http.converter.StringHttpMessageConverter">   
+                <property name = "supportedMediaTypes">
+                      <list>
+                          <value>text/html;charset=UTF-8</value>   
+                     </list>   
+                </property>   
+            </bean>
+             <!--注入字节流程适配器，实现文件下载 -->
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/> 
+		</list>
+		</property> 
+		<property name="webBindingInitializer">  
+		    <bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">  
+		        <property name="conversionService">  
+		            <bean class="org.springframework.format.support.FormattingConversionServiceFactoryBean"></bean>  
+		        </property>  
+		    </bean>  
+		</property>  
+	</bean>
+
+	<bean id="mappingJacksonHttpMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+	</bean> 
+	
+	<!-- 设置freeMarker的配置文件路径 -->
+    <bean id="freemarkerConfiguration" class="org.springframework.beans.factory.config.PropertiesFactoryBean">  
+        <property name="location" value="classpath:freemarker.properties"/>  
+    </bean>
+	
+    <!-- 配置freeMarker的模板路径 -->
+	<bean id="freemarkerConfig"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="defaultEncoding" value="UTF-8" /><!-- 乱码 重点在这里 也可以改成gb2312-->
+		<property name="templateLoaderPath" value="/pages/" /> <!-- 模板加载路径 -->
+		<property name="freemarkerSettings" ref="freemarkerConfiguration"/>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="xml_escape" value-ref="fmXmlEscape" />
+				<entry key="html_escape" value-ref="fmHtmlEscape" />
+			</map>
+		</property>
+	</bean>
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+	<bean id="fmHtmlEscape" class="freemarker.template.utility.HtmlEscape" />
+	<!-- freeMarker 页面解析器 -->
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="order" value="2" />
+		<property name="cache" value="false" />
+		<!--  property name="viewNames" value="*.ftl"/ -->
+		<property name="prefix" value="" /> <!--前缀 -->
+		<property name="suffix" value=".html" /><!--后缀 .html -->
+		<property name="contentType" value="text/html;charset=utf-8" /><!--编码 -->
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<!--上下文,这里配置之后，fkt文件中可以使用${rc.getContextPath()} 来获取文件上下文，类似jsp的request.getContextPath()-->
+		<property name="requestContextAttribute" value="rc" />
+	</bean>
+	<!-- 让springmvc支持文件上传 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+	    <property name="maxInMemorySize" value="2048"></property>
+	    <property name="maxUploadSize" value="100010485761"/><!--10M-->
+	    <property name="uploadTempDir" value="/upload"></property>
+    </bean>
+
+</beans>

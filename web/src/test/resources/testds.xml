@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:testjdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+
+		<!-- 文件上传类,spring管理 -->
+	<bean id="ftpUtils" class="cn.evun.ime.platform.core.utils.FTPUtils">
+		<property name="servername" value="${uploadftp.servername}"></property>
+		<property name="port" value="${uploadftp.port}"></property>
+		<property name="username" value="${uploadftp.username}"></property>
+		<property name="password" value="${uploadftp.password}"></property>
+		<property name="path" value="${uploadftp.path}"></property>
+		<!-- <property name="encoding" value="${uploadftp.encoding}"></property>
+		<property name="bufferSize" value="${uploadftp.bufferSize}"></property> -->
+		<property name="ftpClient" ref="ftpClient"></property>
+	</bean>
+	<bean id="ftpClient" class="org.apache.commons.net.ftp.FTPClient"></bean>
+	
+	<!-- 多类型数据库支持 在配置文件里标识databaseId="mysql/oracle" spring profile -->
+	<bean id="vendorProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="properties">
+			<props>
+				<prop key="SQL Server">sqlserver</prop>
+				<prop key="DB2">db2</prop>
+				<prop key="Oracle">oracle</prop>
+				<prop key="MySQL">mysql</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="databaseIdProvider" class="org.apache.ibatis.mapping.VendorDatabaseIdProvider">
+		<property name="properties" ref="vendorProperties"></property>
+	</bean>
+	
+	<beans profile="development">
+		<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+			init-method="init" destroy-method="close">
+			<property name="url" value="${database.url}" />
+			<property name="username" value="${database.username}" />
+			<property name="password" value="${database.password}" />
+			<property name="filters" value="stat,log4j" />
+
+			<property name="maxActive" value="${datasource.maxActive}" />
+			<property name="initialSize" value="${datasource.initialSize}" />
+			<property name="maxWait" value="${datasource.maxWait}" />
+			<property name="minIdle" value="${datasource.minIdle}" />
+
+			<property name="timeBetweenEvictionRunsMillis" value="${datasource.timeBetweenEvictionRunsMillis}" />
+			<property name="minEvictableIdleTimeMillis" value="${datasource.minEvictableIdleTimeMillis}" />
+
+			<property name="validationQuery" value="SELECT 'x' " />
+			<property name="testWhileIdle" value="true" />
+
+			<property name="connectionProperties" value="druid.stat.slowSqlMillis=5000" />
+
+		</bean>
+	</beans>
+	<beans profile="development,production">
+		<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource" />
+			<property name="databaseIdProvider" ref="databaseIdProvider"></property>
+			<property name="configLocation" value="classpath:conf/sqlmap-config.xml"/>
+			<property name="mapperLocations" value="classpath*:/mybatis/*.xml" />
+		</bean>
+		<bean id="transactionManager"
+			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource" />
+		</bean>
+		<tx:advice id="txadvice" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="select*" propagation="REQUIRES_NEW"
+					read-only="true" />
+				<tx:method name="get*" propagation="REQUIRES_NEW"
+					read-only="true" />
+				<tx:method name="update*" propagation="REQUIRED" />
+				<tx:method name="insert*" propagation="REQUIRED" />
+				<tx:method name="delete*" propagation="REQUIRED" />
+				<tx:method name="import*" propagation="REQUIRED" />
+				<tx:method name="do*" propagation="REQUIRED" />
+				<tx:method name="export*" propagation="REQUIRED"
+					read-only="true" />
+				<tx:method name="upload*" propagation="REQUIRES_NEW" />
+			</tx:attributes>
+		</tx:advice>
+		<aop:config>
+			<aop:advisor advice-ref="txadvice"
+				pointcut="execution(* cn.evun.*..*.service..*(..)), execution(* cn.evun.*..*.webservice..*(..))"
+				order="1" />
+		</aop:config>
+	</beans>
+</beans>
