@@ -1,14 +1,14 @@
 /**
  * <strong>Title : User.java<br></strong>
  * <strong>Package : com.m0427.web<br></strong>
- * <strong>Description : </strong>TODO@类注释说明写在此处@<br> 
- * <strong>Create on : 2016年1月4日 下午2:48:07<br></strong>
+ * <strong>Description : </strong>TODO@绫绘敞閲婅鏄庡啓鍦ㄦ澶凘<br> 
+ * <strong>Create on : 2016骞�鏈�鏃�涓嬪崍2:48:07<br></strong>
  * <p>
  * @author zhanghongjiang<br>
  * @version <strong>v1.0.0</strong><br>
  * <br>
- * <strong>修改历史:</strong><br>
- * 修改人	|	修改日期	|	修改描述<br>
+ * <strong>淇敼鍘嗗彶:</strong><br>
+ * 淇敼浜�|	淇敼鏃ユ湡	|	淇敼鎻忚堪<br>
  * -------------------------------------------<br>
  * <br>
  * <br>
@@ -18,14 +18,14 @@ package com.m0427.web.model;
 /**
  * <strong>Title : User.java<br></strong>
  * <strong>Package : com.m0427.web<br></strong>
- * <strong>Description : </strong>用户基本信息<br> 
- * <strong>Create on : 2016年1月4日 下午2:48:07<br></strong>
+ * <strong>Description : </strong>鐢ㄦ埛鍩烘湰淇℃伅<br> 
+ * <strong>Create on : 2016骞�鏈�鏃�涓嬪崍2:48:07<br></strong>
  * <p>
  * @author zhanghongjiang<br>
  * @version <strong>v1.0.0</strong><br>
  * <br>
- * <strong>修改历史:</strong><br>
- * 修改人	|	修改日期	|	修改描述<br>
+ * <strong>淇敼鍘嗗彶:</strong><br>
+ * 淇敼浜�|	淇敼鏃ユ湡	|	淇敼鎻忚堪<br>
  * -------------------------------------------<br>
  * <br>
  * <br>
@@ -42,7 +42,7 @@ public class User {
     return userName;
   }
   /** 
-  * @param userName 要设置的 userName
+  * @param userName 瑕佽缃殑 userName
   */
   public void setUserName(String userName) {
     this.userName = userName;
@@ -54,7 +54,7 @@ public class User {
     return password;
   }
   /** 
-  * @param password 要设置的 password
+  * @param password 瑕佽缃殑 password
   */
   public void setPassword(String password) {
     this.password = password;
@@ -66,7 +66,7 @@ public class User {
     return phone;
   }
   /** 
-  * @param phone 要设置的 phone
+  * @param phone 瑕佽缃殑 phone
   */
   public void setPhone(String phone) {
     this.phone = phone;
@@ -78,7 +78,7 @@ public class User {
     return MD5Password;
   }
   /** 
-  * @param mD5Password 要设置的 mD5Password
+  * @param mD5Password 瑕佽缃殑 mD5Password
   */
   public void setMD5Password(String mD5Password) {
     MD5Password = mD5Password;

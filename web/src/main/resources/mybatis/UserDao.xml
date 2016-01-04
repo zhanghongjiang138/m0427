@@ -7,9 +7,22 @@
 		select * from user where userName=#{userName} and password=#{password}
 	</select>
 	
-	<insert id="insertUser"parameterType="com.m0427.web.model.User">
+	<insert id="insertUser" parameterType="com.m0427.web.model.User">
 		insert into user
-		()
+		(
+		'userName', 
+		'password', 
+		'phone',
+		 'email'
+		 ) 
+		VALUES
+		 (
+		 #{userName},
+		 #{password},
+		 #{phone},
+		 #{email}
+		  )
+		
 	
 	</insert>
 
