@@ -12,19 +12,19 @@
     <title>Signin</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${rc.getContextPath()}/pages/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="${rc.getContextPath()}/pages/css/signin.css" rel="stylesheet">
+    <link href="${rc.getContextPath()}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="${rc.getContextPath()}/css/signin.css" rel="stylesheet">
   </head>
 
   <body>
 
     <div class="container">
 
-      <form class="form-signin">
+      <form class="form-signin" action="${rc.getContextPath()}/manage/security/register">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
+        <label for="inputEmail" class="sr-only">邮箱</label>
         <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
+        <label for="inputPassword" class="sr-only">密码</label>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
         <div class="checkbox">
           <label>
@@ -39,3 +39,11 @@
 
   </body>
 </html>
+<script>
+$.ajax({
+	url:
+	
+})
+
+
+</script>

@@ -39,7 +39,6 @@
 		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
 		<property name="properties">
 			<props>
-				<prop key="Oracle">oracle</prop>
 				<prop key="MySQL">mysql</prop>
 			</props>
 		</property>
@@ -61,8 +60,8 @@
 			<property name="maxWait" value="${datasource.maxWait}" />
 			<property name="minIdle" value="${datasource.minIdle}" />
 
-			<property name="timeBetweenEvictionRunsMillis" value="${datasource.timeBetweenEvictionRunsMillis}" />
-			<property name="minEvictableIdleTimeMillis" value="${datasource.minEvictableIdleTimeMillis}" />
+<!-- 			<property name="timeBetweenEvictionRunsMillis" value="${datasource.timeBetweenEvictionRunsMillis}" />
+			<property name="minEvictableIdleTimeMillis" value="${datasource.minEvictableIdleTimeMillis}" /> -->
 
 			<property name="validationQuery" value="SELECT 'x' " />
 			<property name="testWhileIdle" value="true" />
@@ -76,7 +75,7 @@
 			<property name="dataSource" ref="dataSource" />
 			<property name="databaseIdProvider" ref="databaseIdProvider"></property>
 			<property name="configLocation" value="classpath:conf/sqlmap-config.xml"/>
-			<property name="mapperLocations" value="classpath*:/mybatis/*.xml" />
+			<property name="mapperLocations" value="classpath:mybatis/*.xml" />
 		</bean>
 		<bean id="transactionManager"
 			class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

@@ -37,4 +37,7 @@ public interface UserService {
    public User getUser(String userName,String password) throws Exception;
 
    public boolean insertUser(User user) throws Exception;
+   
+   public User validateUser(String userName);
+   
 }

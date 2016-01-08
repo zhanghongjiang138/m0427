@@ -9,10 +9,15 @@
 	<context-param>
 	    <param-name>contextConfigLocation</param-name>
 	    <param-value>
-            classpath*:conf/core.xml
+            classpath*:conf/web-core.xml
 	    </param-value>
 	</context-param>
-	
+	<context-param>
+	    <param-name>spring.profiles.active</param-name>
+	    <param-value>
+	           development
+	    </param-value>
+	</context-param>
 <!-- 	<filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>

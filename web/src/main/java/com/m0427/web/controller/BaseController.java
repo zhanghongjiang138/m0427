@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.m0427.web.model.AjaxResult;
 import com.m0427.web.model.User;
+import com.m0427.web.service.UserService;
 import com.m0427.web.service.impl.UserServiceImpl;
 
 /**
@@ -47,7 +48,7 @@ import com.m0427.web.service.impl.UserServiceImpl;
 public class BaseController {
   
   @Resource
-  private UserServiceImpl userService;
+  private UserService userService;
   
   @RequestMapping("redirectRegister")
   public String redirectRegister(Model model)
@@ -59,11 +60,23 @@ public class BaseController {
   @ResponseBody
   public AjaxResult index(User user,Model model) throws Exception
   {
-    if(StringUtils.isBlank(user.getUserName())||StringUtils.isBlank(user.getPassword()))
+    if(StringUtils.isBlank(user.getUserName()))
     {
-    	return new AjaxResult("用户名或密码不能为空！");
+      user.setUserName(user.getEmail());
+    }
+    if(StringUtils.isBlank(user.getPassword()))
+    {
+      return new AjaxResult("密码不能为空");
     }
     userService.insertUser(user);
     return new AjaxResult("注册成功");
   }
+  
+  @RequestMapping("validateUser")
+  @ResponseBody
+  public boolean validateUser(String userName) throws Exception
+  {
+    return userService.validateUser(userName)!=null;
+  }
+  
 }

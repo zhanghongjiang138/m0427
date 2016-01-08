@@ -53,9 +53,32 @@ public class UserServiceImpl implements UserService {
  
   @Override
   public boolean insertUser(User user) throws Exception {
-    user.setMD5Password(EncryptAlgorithm.hexMD5(user.getPassword()));
+    user.setPassword(EncryptAlgorithm.hexMD5(user.getPassword()));
     userDao.insertUser(user);
     return true;
+  }
+
+
+  /**
+   * <strong>Title : validateUser<br></strong>
+   * <strong>Description : </strong>验证用户名是否存在<br> 
+   * <strong>Create on : 2016年1月6日 下午4:06:38<br></strong>
+   * <p>
+   * @param userName
+   * @return
+   * Object
+   * @throws 
+   * @author zhanghongjiang<br>
+   * @version <strong>v1.0.0</strong><br>
+   * <br>
+   * <strong>修改历史:</strong><br>
+   * 修改人	|	修改日期	|	修改描述<br>
+   * -------------------------------------------<br>
+   * <br>
+   * <br>
+   */
+  public User validateUser(String userName) {
+    return userDao.validateUser(userName);
   }
 
 }
