@@ -15,7 +15,7 @@
  */
 package com.m0427.web.service;
 
-import com.m0427.web.model.User;
+import com.m0427.web.model.UserInfo;
 
 /**
  * <strong>Title : UserService.java<br></strong>
@@ -34,10 +34,10 @@ import com.m0427.web.model.User;
  */
 public interface UserService {
   
-   public User getUser(String userName,String password) throws Exception;
+   public UserInfo getUser(String userName,String password) throws Exception;
 
-   public boolean insertUser(User user) throws Exception;
+   public boolean insertUser(UserInfo user) throws Exception;
    
-   public User validateUser(String userName);
+   public UserInfo validateUser(String userName);
    
 }

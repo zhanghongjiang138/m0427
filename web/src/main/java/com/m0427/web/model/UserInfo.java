@@ -15,15 +15,21 @@
  */
 package com.m0427.web.model;
 
+import java.util.Date;
+
 /**
 	用户基本表
  */
-public class User {
+public class UserInfo {
+	private Long id;
 	private String userName;
 	private String password;
 	private String phone;
 	private String email;
 	private String MD5Password;
+	private String nickName;
+	private Date createDateTime;
+	private Date modifyDateTime;
 		  
 	public String getUserName() {
 		return userName;
@@ -54,6 +60,30 @@ public class User {
 	}
 	public void setMD5Password(String mD5Password) {
 		MD5Password = mD5Password;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	public Date getCreateDateTime() {
+		return createDateTime;
+	}
+	public void setCreateDateTime(Date createDateTime) {
+		this.createDateTime = createDateTime;
+	}
+	public Date getModifyDateTime() {
+		return modifyDateTime;
+	}
+	public void setModifyDateTime(Date modifyDateTime) {
+		this.modifyDateTime = modifyDateTime;
 	}
   
   

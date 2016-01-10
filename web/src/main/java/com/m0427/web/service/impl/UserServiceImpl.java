@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 
 import com.m0427.web.dao.UserDao;
-import com.m0427.web.model.User;
+import com.m0427.web.model.UserInfo;
 import com.m0427.web.service.UserService;
 import com.m0427.web.utils.EncryptAlgorithm;
 
@@ -45,14 +45,14 @@ public class UserServiceImpl implements UserService {
   UserDao userDao;
 
   @Override
-  public User getUser(String userName, String password) throws Exception {
+  public UserInfo getUser(String userName, String password) throws Exception {
     String MD5Password=EncryptAlgorithm.hexMD5(password);
     return userDao.getUser(userName,MD5Password);
   }
 
  
   @Override
-  public boolean insertUser(User user) throws Exception {
+  public boolean insertUser(UserInfo user) throws Exception {
     user.setPassword(EncryptAlgorithm.hexMD5(user.getPassword()));
     userDao.insertUser(user);
     return true;
@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService {
    * <br>
    * <br>
    */
-  public User validateUser(String userName) {
+  public UserInfo validateUser(String userName) {
     return userDao.validateUser(userName);
   }
 
