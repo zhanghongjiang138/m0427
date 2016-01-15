@@ -17,7 +17,7 @@ package com.m0427.web.dao;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.m0427.web.model.User;
+import com.m0427.web.model.UserInfo;
 
 /**
  * <strong>Title : UserDao.java<br></strong>
@@ -36,10 +36,10 @@ import com.m0427.web.model.User;
  */
 public interface UserDao {
   
-    public User getUser(@Param("userName")String userName,@Param("password")String password);
+    public UserInfo getUser(@Param("userName")String userName,@Param("password")String password);
 
-    public void insertUser(User user);
+    public void insertUser(UserInfo user);
 
 
-    public User validateUser(@Param("userName")String userName);
+    public UserInfo validateUser(@Param("userName")String userName);
 }

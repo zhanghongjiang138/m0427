@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.m0427.web.dao.EssayDao">
+	<select id="getEssay" resultType="com.m0427.web.model.Essay">
+		select * from Essay where title=#{title} or id=#{id}	
+	</select>
+	
+	<insert id="insertEssay" parameterType="com.m0427.web.model.Essay" useGeneratedKeys="true" keyProperty="id">
+		insert into Essay
+		(
+	    id,
+	    title,
+	    context,
+	    praise,
+	    discourage,
+	    clickNum,
+	    createUser,
+	    createDateTime;
+	    modifyUser,
+	    modifyDateTime 
+		 ) 
+		VALUES
+		 (
+		 #{id},
+		 #{title},
+		 #{context},
+		 #{praise},
+		 #{discourage},
+		 #{clickNum},
+		 #{createUser},
+		 #{createDateTime},
+		 #{modifyUser},
+		 #{modifyDateTime}
+		  )
+		
+	</insert>
+	
+	<select id="selectAllEssay" resultType="com.m0427.web.model.Essay">
+	select * from Eassy order by modifyDateTime desc;	
+	</select>
+
+	
+	
+	
+</mapper>
