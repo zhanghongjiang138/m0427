@@ -11,7 +11,7 @@ public class Runner implements Runnable{
   public void run() {
     while(true)
     {
-      System.out.println(runnerName+": "+i++);
+      System.out.println(runnerName+":: "+i++);
     }
   }
   
