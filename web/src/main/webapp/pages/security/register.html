@@ -4,56 +4,148 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Signin</title>
+    <title>sign in</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="${rc.getContextPath()}/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="${rc.getContextPath()}/css/signin.css" rel="stylesheet">
+	
+	<style type="text/css">
+	.emptyLine{
+		width:99%;
+		height:6px;
+	}
+	.alertDiv{
+		margin-top:20px;
+		display:none;
+	}
+	</style>
   </head>
-
-  <body>
-<ul id="myTab" class="nav nav-tabs">
-   <li class="active">
-      <a href="#home" data-toggle="tab">
-         注册
-      </a>
-   </li>
-   <li><a href="#登录" data-toggle="tab">登录</a></li>
-</ul>
-<div id="myTabContent" class="tab-content">
-   <div class="tab-pane fade in active" id="home">
-   	<div class="container">
-	      <form class="form-signin" action="${rc.getContextPath()}/manage/security/register">
-	        <h2 class="form-signin-heading">Please sign in</h2>
-	        <label for="inputEmail" class="sr-only">邮箱</label>
-	        <input type="email" name="email" class="form-control" placeholder="Email address" required autofocus>
-	        <label for="inputPassword" class="sr-only">密码</label>
-	        <input type="password" name="password" class="form-control" placeholder="Password" required>
-	        <div class="checkbox">
-	          <label>
-	            <input type="checkbox" value="remember-me"> Remember me
-	          </label>
-	        </div>
-	        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-	      </form>
-   	 </div> 
-   </div>
-   <div class="tab-pane fade" id="ios">
-      <p>iOS 是一个由苹果公司开发和发布的手机操作系统。最初是于 2007 年首次发布 iPhone、iPod Touch 和 Apple 
-      TV。iOS 派生自 OS X，它们共享 Darwin 基础。OS X 操作系统是用在苹果电脑上，iOS 是苹果的移动版本。</p>
-   </div>
-</div>
   
-
+  <body>
+  <#if loginFailure?? && (loginFailure==true)>
+  	<div id="loginFailureAlert" class="alert alert-danger alertDiv"  role="alert">用户名或密码错误</div>
+  </#if>
+  <#if accessDeniedAlert?? && (accessDeniedAlert==true)>
+  	<div id="accessDeniedAlert" class="alert alert-danger alertDiv"  role="alert">请先登录</div>
+  </#if>
+  <div class="form-signin">
+	<ul id="myTab" class="nav nav-tabs">
+	   <li class="active">
+	      <a href="#home" data-toggle="tab">
+	      		   注册
+	      </a>
+	   </li>
+	   <li><a href="#login" data-toggle="tab">登录</a></li>
+	</ul>
+	</div>
+	<div id="myTabContent" class="tab-content">
+	   <div class="tab-pane fade in active" id="home">
+	   	<div class="container">
+		      <form class="form-signin" action="#" onsubmit="return register.validateUser()">
+		        <label for="inputEmail" class="sr-only">邮箱</label>
+		        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+		        <div class="emptyLine"></div>
+		        <label for="inputPassword" class="sr-only">密码</label>
+		        <input id="password" name="password" class="form-control" placeholder="Password" required>
+		        <div class="emptyLine"></div>
+		        <button class="btn btn-lg btn-primary btn-block" type="submit">register</button>
+		        <div id="registerAlert" class="alert alert-danger alertDiv"  role="alert">帐号已存在</div>
+		      </form>
+	   	 </div> 
+	   </div>
+	   <div class="tab-pane fade" id="login">
+	     <div class="container">
+		      <form class="form-signin" action="#" onsubmit="return register.validateUser()">
+		        <label for="inputEmail" class="sr-only">邮箱</label>
+		        <input type="email" id="email" name="email" class="form-control" placeholder="Email address" required autofocus>
+		        <div class="emptyLine"></div>
+		        <label for="inputPassword" class="sr-only">密码</label>
+		        <input id="password" name="password" class="form-control" placeholder="Password" required>
+		        <div class="checkbox">
+		          <label>
+		            <input type="checkbox" value="remember-me"> Remember me
+		          </label>
+		        </div> 
+		        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+		        
+		        <div id="loginAlert" class="alert alert-danger alertDiv" role="alert">用户名或密码错误</div>
+		      </form>
+	   	 </div> 
+	   </div>
+	</div>
+	  
   </body>
 </html>
+<script src="${rc.getContextPath()}/bootstrap/js/jquery.min.js"></script>
+<script src="${rc.getContextPath()}/bootstrap/js/bootstrap.min.js"></script>
 <script>
-$.ajax({
-	url:
-	
-})
+
+
+var register={
+		validateUser:function(){
+			var validate=true;
+			var $alert=$("#registerAlert");
+			if(!this.checkPasswordEqual){
+				return false;
+			}
+			var email=$("#email").val();
+			$.ajax({
+				async : false,
+				url:"${rc.getContextPath()}/manage/security/validateUser",
+				data:{"userName":email},
+				type:"GET",
+				success:function(data){
+					if(data===true){
+						validate=false;
+					}
+					else
+					{
+						$alert.hide();
+					}
+				}
+			});
+			if(!validate){
+				$alert.show();
+			}
+			return validate;
+		}
+		
+}
+
+
+var login={
+		loginUser:function(){
+			var validate=true;
+			var $alert=$("#loginAlert");
+			if(!this.checkPasswordEqual){
+				return false;
+			}
+			var email=$("#email").val();
+			$.ajax({
+				async : false,
+				url:"${rc.getContextPath()}/manage/security/validateUser",
+				data:{"userName":email},
+				type:"GET",
+				success:function(data){
+					if(data===true){
+						validate=false;
+					}
+					else
+					{
+						$alert.hide();
+					}
+				}
+			});
+			if(!validate){
+				$alert.show();
+			}
+			return validate;
+		}
+		
+}
+
+</script>

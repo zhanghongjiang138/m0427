@@ -1,0 +1,116 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<http pattern="/manage/login" security="none"/>
+	<http pattern="/manage/loginDialog" security="none"/>
+	<http pattern="**.jpg" security="none" />
+	<http pattern="**.png" security="none" />
+	<http pattern="**.gif" security="none" />
+	<http pattern="**.css" security="none" />
+	<http pattern="**.js" security="none" />  
+	<http pattern="**.properties" security="none" />  
+	<http auto-config="false" entry-point-ref="nologinFilterEntryPoint">
+		<custom-filter ref="concurrentSessionFilter" position="CONCURRENT_SESSION_FILTER" />
+		
+		<custom-filter  ref="loginFilter"  before="FORM_LOGIN_FILTER"/>
+		
+		<!-- 尝试访问没有权限的页面时跳转的页面  -->
+		<access-denied-handler ref="accessDeniedHandler"/>
+		<intercept-url pattern="/manage/**" access="IS_AUTHENTICATED_FULLY" />
+		<logout logout-success-url="/manage/login" invalidate-session="true" logout-url="/manage/logout" />
+		<anonymous username="guest"/>
+		<request-cache ref="httpSessionRequestCache"/>
+	</http>
+	<global-method-security pre-post-annotations="enabled" />
+		
+	<beans:bean id="loginFilter"
+		class="org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+		<!-- 用户拥有的权限 -->
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		
+		<beans:property name="authenticationFailureHandler" ref="failureHandler"/>
+
+        <beans:property name="authenticationSuccessHandler" ref="successHandler"/>
+
+        <beans:property name="filterProcessesUrl" value="/manage/security/doLogin"/>
+        <beans:property name="usernameParameter" value="username"/>
+        <beans:property name="passwordParameter" value="password"/>
+        
+        <beans:property name="sessionAuthenticationStrategy" ref="concurrentSessionControlStrategy"/>
+		
+	</beans:bean>
+	
+	<!-- 验证成功与失败的处理 -->
+	<beans:bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
+        <beans:property name="defaultFailureUrl" value="/manage/login?error=1" />
+    </beans:bean>
+
+    <beans:bean id="successHandler" class="cn.evun.ime.platform.web.security.ImeAuthenticationSuccessHandler">
+        <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
+        <beans:property name="defaultTargetUrl" value="/manage/index"/>
+    </beans:bean>
+
+	<!-- 验证配置 ， 认证管理器，实现用户认证的入口 -->
+	<authentication-manager alias="authenticationManager" erase-credentials="false">
+		<authentication-provider  user-service-ref="userDetailService">
+			<password-encoder hash="md5" />
+		</authentication-provider>
+	</authentication-manager>
+    
+
+	<!-- 项目实现的用户查询服务,将用户信息查询出来 -->
+	<beans:bean id="userDetailService" class="com.m0427.web.service.MyUserDetailService" />
+
+
+	</beans:bean>
+
+	<beans:bean id="accessDeniedHandler" class="cn.evun.ime.platform.web.security.AuthorityAccessDeniedHandlerImpl">
+		<beans:property name="errorPage" value="/manage/security/accessDenied" />
+	</beans:bean>
+	
+	<beans:bean id="securityContextUtil" class="cn.evun.ime.platform.security.SecurityContextUtil">
+	</beans:bean>
+	
+	<beans:bean id="nologinFilterEntryPoint" class="cn.evun.ime.platform.web.security.ImeLoginUrlEntryPoint">  
+        <beans:property name="loginFormUrl" value="/manage/login"></beans:property>
+        <beans:property name="useForward" value="true"></beans:property>
+    </beans:bean>  
+	
+	<beans:bean id="httpSessionRequestCache" class="org.springframework.security.web.savedrequest.HttpSessionRequestCache"/>
+
+	
+	
+	
+	<beans:bean id="sessionRegistryImpl" class="org.springframework.security.core.session.SessionRegistryImpl" />
+	
+	<beans:bean id="concurrentSessionControlStrategy" class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<beans:constructor-arg name="sessionRegistry"  ref="sessionRegistryImpl"/>
+		<!-- true限制不允许第二个用户登录,false第二个登陆用户踢掉前一个登陆用户 --> 
+		<beans:property name="exceptionIfMaximumExceeded"  value="false" /> 
+		<!-- 允许同时多少个用户同时登陆 -1 就是不限制--> 
+		<beans:property name="maximumSessions" value="-1"/> 
+	</beans:bean>
+	
+	<beans:bean id="concurrentSessionFilter"  
+        class="org.springframework.security.web.session.ConcurrentSessionFilter">  
+        <beans:property name="sessionRegistry" ref="sessionRegistryImpl" />
+        <!-- 踢出的用户转向的页面--> 
+        <beans:property name="expiredUrl" value="/" />  
+        <beans:property name="logoutHandlers">  
+            <beans:list>  
+                <beans:ref local="logoutHandler" />  
+            </beans:list>  
+        </beans:property>  
+    </beans:bean>  
+      
+    <!-- 注销监听器  -->  
+    <beans:bean id="logoutHandler"  
+        class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler">  
+        <beans:property name="invalidateHttpSession" value="true" />  
+    </beans:bean>  
+	
+</beans:beans> 

@@ -16,14 +16,42 @@ import com.m0427.web.service.UserService;
 @Controller
 @RequestMapping("/security/*")
 public class SecurityController extends BaseController {
+  private static final String REGISTER_PAGE="security/rigister";
+  private static final String INDEX="index0";
 	
-	@Resource
+	  @Resource
 	  private UserService userService;
+	  
+	  @RequestMapping("doLogin")
+	  public String doLogin(Model model)
+	  {
+	    return REGISTER_PAGE;
+	  }
 	  
 	  @RequestMapping("redirectRegister")
 	  public String redirectRegister(Model model)
 	  {
-		  return "security/register";
+		  return REGISTER_PAGE;
+	  }
+	  
+	  @RequestMapping("accessDenied")
+	  public String accessDenied(Model model)
+	  {
+	    model.addAttribute("accessDenied", true);
+	    return "REGISTER_PAGE";
+	  }
+	  
+	  @RequestMapping("loginFailure")
+    public String loginFailure(Model model)
+    {
+      model.addAttribute("loginFailure", true);
+      return "REGISTER_PAGE";
+    }
+	  
+	  @RequestMapping("loginSuccess")
+	  public String loginSuccess(Model model)
+	  {
+	    return INDEX;
 	  }
 	  
 	  @RequestMapping("register")
@@ -34,6 +62,7 @@ public class SecurityController extends BaseController {
 	    {
 	      user.setUserName(user.getEmail());
 	    }
+	   
 	    if(StringUtils.isBlank(user.getPassword()))
 	    {
 	      return new AjaxResult("密码不能为空");
