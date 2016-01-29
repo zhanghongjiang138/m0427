@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Angular Basic example</title>
+<link rel="stylesheet" type="text/css" href="styles/app.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+<script type="text/javascript">
+
+	var module = angular.module('AppModule', []);
+	module.controller('myController', ['$scope', function($scope) {
+		var defaultScore = {id: '', name: 'Please select ..'};
+		
+		$scope.score = defaultScore;
+		$scope.scoreOptions = [
+		    defaultScore,
+        	{id: '80+', name: '80 and above'},
+          	{id: '60+', name: '60 - 79'},
+          	{id: '60-', name: 'Below 60'}
+        ];
+		
+		$scope.acceptance = function() {
+			var score = $scope.score.id;
+			
+			console.log('This can be an ajax call ...');
+			
+			if (! score)
+				return 'Please select a score';
+			else if (score === '80+') 
+				return 'You are accepted to the school!';
+			else if (score === '60+')
+				return 'You are in the waiting list';
+			else
+				return 'You are rejected';
+		};
+		
+		// Add more data to the application
+		var additionalInfo = {};
+		$scope.additionalInfo = additionalInfo;
+		
+		additionalInfo.race = null;
+		additionalInfo.gender = null;
+		additionalInfo.bodyType = null;
+		additionalInfo.statementOfPurpose = null;
+	}]);
+	
+</script>
+</head>
+<body>
+<div ng-app="AppModule" ng-strict-di>
+	<div ng-controller="myController" id="biggerapp">
+		<div>
+			<select ng-options="option.name for option in scoreOptions track by option.id"
+	      		ng-model="score"></select>
+			<span>&nbsp;{{acceptance()}}</span>
+		</div>
+		<div><span class="label">Race</span>
+			<input class="textinput" type="text" ng-model="additionalInfo.race" />
+		</div>
+		<div><span class="label">Gender</span>
+			<input class="textinput" type="text" ng-model="additionalInfo.gender" />
+		</div>
+		<div><span class="label">Body Type</span>
+			<input class="textinput" type="text" ng-model="additionalInfo.bodyType" />
+		</div>
+		<div><span class="label">Statement</span>
+			<textarea class="textinput" ng-model="additionalInfo.statementOfPurpose"></textarea>
+		</div>
+	</div>
+</div>
+<br>
+<div><a href="index.html">Back...</a></div>
+</body>
+</html>

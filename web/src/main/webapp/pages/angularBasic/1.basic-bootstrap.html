@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Angular Basic example</title>
+<link rel="stylesheet" type="text/css" href="styles/app.css">
+
+<script src="${rc.getContextPath()}/AngularJs/angular.min.js"></script>
+<script src="${rc.getContextPath()}/AngularJs/myController2.js"></script>
+
+<script type="text/javascript">
+	var myApp = angular.module('myApp', []);
+	
+	myApp.controller('MyController', ['$scope', function ($scope) {
+		$scope.no = 0;
+		$scope.data = {greeting: 'Hello World'};
+		
+		$scope.sayHello = function() {
+			$scope.no = $scope.no + 1;
+		    $scope.data = {greeting: 'Hello World No.' + $scope.no};
+		};
+	}]);
+	
+	angular.element(document).ready(function() {
+		var element = document.getElementById('divManuBootstrap-angular');
+		angular.bootstrap(element, ['myApp'], {strictDi: true});
+	});
+	
+	$(document).ready(function() {
+		var element = document.getElementById('divManuBootstrap-jQuery');
+		angular.bootstrap(element, ['myApp'], {strictDi: true});
+	})
+
+</script>
+</head>
+<body>
+<div id="divAutomaticInitialization" ng-app="myApp" ng-strict-di>
+	<div ng-controller="MyController">
+		<span>{{data.greeting}}</span>
+		<button type="button" ng-click="sayHello()">Say hello...</button>
+	</div>
+</div>
+<div id="divManuBootstrap-angular">
+	<div ng-controller="MyController" ng-strict-di>
+		<span>{{data.greeting}}</span>
+		<button type="button" ng-click="sayHello()">Say hello...</button>
+	</div>
+</div>
+<div id="divManuBootstrap-jQuery">
+	<div ng-controller="MyController" ng-strict-di>
+		<span>{{data.greeting}}</span>
+		<button type="button" ng-click="sayHello()">Say hello...</button>
+	</div>
+</div>
+<br>
+<div><a href="index.html">Back...</a></div>
+</body>
+</html>

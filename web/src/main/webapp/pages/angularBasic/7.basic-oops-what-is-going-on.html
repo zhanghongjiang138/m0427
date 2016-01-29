@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Angular Basic example</title>
+<link rel="stylesheet" type="text/css" href="styles/app.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+<script type="text/javascript">
+
+	var module = angular.module('AppModule', []);
+	module.controller('myController', ['$scope', function($scope) {
+		$scope.first = 0;
+		$scope.second = 0;
+		
+		$scope.increaseFirst = function() {
+			$scope.first++;
+		}
+		
+		$scope.$watch('first', function() {
+			if ($scope.first == 0) return;
+			$scope.second--;
+		});
+		
+		$scope.$watch('second', function() {
+			if ($scope.second == 0) return;
+			$scope.first++;
+		})
+		
+	}]);
+	
+</script>
+</head>
+<body>
+<div ng-app="AppModule" ng-strict-di>
+	<div ng-controller="myController">
+		<div>First: {{first}}</div>
+		<div>Second: {{first}}</div>
+		<div><button type="button" ng-click="increaseFirst()">Increase First...</button></div>
+	</div>
+</div>
+<br>
+<div><a href="index.html">Back...</a></div>
+</body>
+</html>

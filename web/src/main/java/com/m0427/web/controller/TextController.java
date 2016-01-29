@@ -38,9 +38,10 @@ public class TextController extends BaseController {
 	}
 	
 	@RequestMapping(value="addEssay")
-	public String addEssay(Model model,Essay essay)
+	public String addEssay(Model model,Essay essay,String number)
 	{
-		return "text/addEssay";
+	  
+		return "text/addEssay"+number;
 	}
 			
 }

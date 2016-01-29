@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Angular Basic example</title>
+<link rel="stylesheet" type="text/css" href="styles/app.css">
+
+<script src="scripts/simple-mapper.js"></script>
+
+<script type="text/javascript">
+	var appModel = function() {
+		return {
+			data: {
+				score: '',
+				acceptance: 'Please select a score',
+				race: '',
+				gender: '',
+				bodyType: '',
+				statementOfPurpose: ''
+			},
+			elementMapping: {
+				score: {element: 'selScores', type: 'value'},
+				acceptance: {element: 'spanAcceptance', type: 'html'},
+				race: {element: 'txtRace', type: 'value'},
+				gender: {element: 'txtGender', type: 'value'},
+				bodyType: {element: 'txtBodyType', type: 'value'},
+				statementOfPurpose: {element: 'txtStatementOfPurpose', type: 'value'}
+			}
+		};
+	}();
+	
+	var controller = function(model) {
+		var sm = simplemapper(model);
+		var data = model.data;
+		
+		return {
+			mapper: sm,
+			checkAcceptance: function() {
+				var score = sm.getUpdatedDataItem('score');
+				
+				console.log('This can be an ajax call ...');
+				
+				if (score == '')
+					data.acceptance = 'Please select a score';
+				else if (score === '80+') 
+					data.acceptance = 'You are accepted to the school!';
+				else if (score === '60+')
+					data.acceptance = 'You are in the waiting list';
+				else
+					data.acceptance = 'You are rejected';
+				
+				sm.deserialize('acceptance');
+			},
+			checkSerialization: function() {
+				console.log(sm.getUpdatedData());
+			}
+		}
+	}(appModel);
+	
+	
+	window.onload = function() {
+		controller.mapper.deserializeAll();
+	}
+	
+</script>
+</head>
+<body>
+<div>
+	<div id="biggerapp">
+		<div>
+			<select id="selScores" onchange="return controller.checkAcceptance()">
+				<option value=''>Please select ..</option>
+				<option value='80+'>80 and above</option>
+				<option value='60+'>60 - 79</option>
+				<option value='60-'>Below 60</option>
+			</select>&nbsp;<span id="spanAcceptance"></span>
+		</div>
+		<div><span class="label">Race</span>
+			<input class="textinput" type="text" id="txtRace" />
+		</div>
+		<div><span class="label">Gender</span>
+			<input class="textinput" type="text" id="txtGender" />
+		</div>
+		<div><span class="label">Body Type</span>
+			<input class="textinput" type="text" id="txtBodyType" />
+		</div>
+		<div><span class="label">Statement</span>
+			<textarea class="textinput" id="txtStatementOfPurpose"></textarea>
+		</div>
+		<div>
+			<button type="button" onclick="return controller.checkSerialization()">
+				Check serialization</button>
+		</div>
+	</div>
+</div>
+<br>
+<div><a href="index.html">Back...</a></div>
+</body>
+</html>

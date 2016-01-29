@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Angular Basic example</title>
+<link rel="stylesheet" type="text/css" href="styles/app.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js"></script>
+
+<script type="text/javascript">
+	// Declare the modules
+	var dataModule = angular.module('dataModule', []);
+	var dataManipulationModuleByService = angular
+		.module('dataManipulationModuleByService', ['dataModule']);
+	var dataManipulationModuleByProvider = angular
+		.module('dataManipulationModuleByProvider', ['dataModule']);
+	var AppModule = angular.module('AppModule',
+			['dataModule', 'dataManipulationModuleByService', 'dataManipulationModuleByProvider']);
+	
+	// Add a factory to the 'dataModule' module
+	dataModule.factory('appData', function() {
+		return {no: 0, greeting: 'Hello World'};
+	});
+	
+	// Add a service to the 'dataManipulationModuleByService' module
+	dataManipulationModuleByService.service('appDataManipulatorByService', ['appData', function(data) {
+		this.increaseGreeting = function() {
+			data.no = data.no + 1;
+			data.greeting = 'Hello World No.' + data.no;
+		};
+	}]);
+	
+	// Add a provider to the 'dataManipulationModuleByProvider' module
+	dataManipulationModuleByProvider.provider('appDataManipulatorByProvider', function() {
+		var greetingText = null;
+		this.setGreetingText = function(text) { greetingText = text; };
+		
+		this.$get = ['appData', function(data) {
+		    return {
+		    	decreaseGreeting: function() {
+		    		data.no = data.no - 1;
+		    		data.greeting = greetingText + data.no;
+		    	}
+		    };
+		}];
+	}).config(["appDataManipulatorByProviderProvider", function(provider) {
+		provider.setGreetingText('Hello World No.');
+	}]);
+	
+	// Use the modules in the 'AppModule' module
+	AppModule.controller('MyController',
+			['$scope', 'appData', 'appDataManipulatorByService', 'appDataManipulatorByProvider',
+			 	function ($scope, data, sManipulator, pManipulator) {
+		$scope.data = data;
+		$scope.addGreeting = function() {
+			sManipulator.increaseGreeting();
+		};
+		$scope.decreaseGreeting = function() {
+			pManipulator.decreaseGreeting();
+		}
+	}]);
+
+	angular.element(document).ready(function() {
+		angular.bootstrap(document.getElementById('divManuBootstrap-angular'), ['AppModule'], {strictDi: true});
+	});
+</script>
+</head>
+<body>
+<div id="divAutomaticInitialization" ng-app="AppModule" ng-strict-di>
+	<div ng-controller="MyController">
+		<span>{{data.greeting}}</span>
+		<button type="button" ng-click="addGreeting()">Add hello...</button>
+		<button type="button" ng-click="decreaseGreeting()">Decrease hello...</button>
+	</div>
+	<div ng-controller="MyController">
+		<span>{{data.greeting}}</span>
+		<button type="button" ng-click="addGreeting()">Add hello...</button>
+		<button type="button" ng-click="decreaseGreeting()">Decrease hello...</button>
+	</div>
+</div>
+
+<div id="divManuBootstrap-angular">
+	<div ng-controller="MyController" ng-strict-di>
+		<span>{{data.greeting}}</span>
+		<button type="button" ng-click="addGreeting()">Add hello...</button>
+		<button type="button" ng-click="decreaseGreeting()">Decrease hello...</button>
+	</div>
+</div>
+<br>
+<div><a href="index.html">Back...</a></div>
+</body>
+</html>

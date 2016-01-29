@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: lib/ojdbc14.jar
+Main-Class: com.Toolkit

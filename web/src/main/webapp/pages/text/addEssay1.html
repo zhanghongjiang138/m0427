@@ -1,0 +1,100 @@
+<html ng-app='MyApp'>
+    <head>
+    </head>
+<style>
+.lesson{
+	border:dotted 1px #555;
+	margin:15px 5px;
+	padding:2px;
+	height:70px;
+	width:300px;
+}
+
+</style>  
+<script src="${rc.getContextPath()}/AngularJs/angular.min.js"></script>
+<script src="${rc.getContextPath()}/AngularJs/myController1.js"></script>
+    <body ng-controller="BookStore">
+	    <div class="lesson">
+	        ng-app {{name}}
+	    </div>
+	    <div class="lesson">
+	    	<input type="text" ng-model="yourname" placeholder="World0">
+	        Hello {{yourname + ' World'}}!
+	    </div>
+	    
+	    <div class="lesson">
+		    <ul>
+	   			 <li>
+	     			 {{article}}
+	   			 </li>
+		    </ul>
+	    </div>
+
+	<div style="border: 1px solid blue;">
+		<table>
+			<tr>
+				<td>ISBN:</td>
+				<td><input type="text" ng-model="item.ISBN" /></td>
+			</tr>
+			<tr>
+				<td>Name:</td>
+				<td><input type="text" ng-model="item.Name" /></td>
+			</tr>
+			<tr>
+				<td>Price(In Rupee):</td>
+				<td><input type="number" ng-model="item.Price" /></td>
+			</tr>
+			<tr>
+				<td>Quantity:</td>
+				<td><input type="number" ng-model="item.Quantity" /></td>
+			</tr>
+			<tr>
+				<td colspan="2"><input type="Button" value="Add to list" ng-click="addItem(item)" /></td>
+			</tr>
+		</table>
+	</div>
+	<div>
+        <div>
+            <br />
+            <div style="padding-top:15px;">
+            <table border="1" class="mytable">
+                    <tr>
+                        <td>ISBN</td>
+                        <td>Name</td>
+                        <td>Price</td>
+                        <td>Quantity</td>
+                        <td>Total Price</td>
+                        <td>Action</td>
+                    </tr>
+                
+                
+                    <tr ng-repeat="item in items">
+                        <td>{{item.ISBN}}</td>
+                        <td>
+                           <span ng-hide="editMode">{{item.Name}}</span>
+                           <input type="text" ng-show="editMode" ng-model="item.Name" />
+                        </td>
+                        <td>
+                           <span ng-hide="editMode">{{item.Price}}</span>
+                           <input type="number" ng-show="editMode" ng-model="item.Price"  />
+                        </td>
+                        <td>
+                           <span ng-hide="editMode">{{item.Quantity}}</span>
+                           <input type="number" ng-show="editMode" ng-model="item.Quantity"  /></td>
+                        <td>{{(item.Quantity) * (item.Price)}}</td>
+                        <td>
+                             <span> <button type="submit" ng-hide="editMode" ng-click="editMode = true; editItem(item)" >Edit</button></span>
+                             <span> <button type="submit" ng-show="editMode" ng-click="editMode = false">Save</button></span>
+                             <span><input type="button" value="Delete" ng-click="removeItem($index)" /></span>
+                        </td>
+                    </tr>
+                
+            </table></div>
+            <br />
+            <div style="font-weight:bold">Grand Total: {{totalPrice()}}</div>
+            <br />
+        </div>
+    </div>
+
+</body>
+</html>
