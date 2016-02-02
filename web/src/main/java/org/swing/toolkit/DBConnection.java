@@ -130,6 +130,7 @@ public class DBConnection {
   public static void main(String[] args) {
     Connection con=getConnection();
     String sql="select * from test";
+    ThreadLocal a;
     try {
       String str=DBConnection.execute(con, sql);
       System.out.println(str);

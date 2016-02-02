@@ -16,6 +16,7 @@
 package org.swing.toolkit;
 
 import java.util.HashSet;
+import java.util.WeakHashMap;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -27,6 +28,7 @@ public class Clazz {
    AtomicInteger i;
    final int   MIN_VALUE = 0x80000000;
    final int  MAX_VALUE = 0x7fffffff;
+   WeakHashMap aa;
    byte bits='c';
    char c='c';
    System.out.println((Integer.MAX_VALUE));
