@@ -16,7 +16,7 @@ class Root {
   //深度遍历 Depth-first search
   public  static void traverse(Root root)
   {
-    list.add(root.value);//先序遍历
+    //list.add(root.value);//先序遍历
     if(root.lChild!=null)
     {
       traverse(root.lChild);
@@ -26,7 +26,7 @@ class Root {
     {
       traverse(root.rChild);
     }
-    //list.add(root.value);//后序遍历
+    list.add(root.value);//后序遍历
   }
   public static Root createExampleTree()
   {

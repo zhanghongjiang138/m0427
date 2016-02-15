@@ -1,0 +1,5 @@
+C:/>jps
+3504 Jps
+3676 Bootstrap
+调用jmap工具得到信息
+C:/>jmap -dump:format=b,file=heap.bin 3676
