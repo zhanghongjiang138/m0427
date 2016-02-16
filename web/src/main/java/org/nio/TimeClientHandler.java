@@ -1,7 +1,6 @@
 package org.nio;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
@@ -9,6 +8,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class TimeClientHandler implements Runnable {
   private String host;
@@ -35,7 +35,7 @@ public class TimeClientHandler implements Runnable {
   }
 
   public static void main(String[] args) {
-
+    AtomicInteger a;
   }
   @Override
   public void run() {
