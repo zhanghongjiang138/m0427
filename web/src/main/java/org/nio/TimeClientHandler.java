@@ -35,7 +35,8 @@ public class TimeClientHandler implements Runnable {
   }
 
   public static void main(String[] args) {
-    AtomicInteger a;
+    int port=1025;
+    new Thread(new TimeClientHandler("",port++)).start();;
   }
   @Override
   public void run() {
