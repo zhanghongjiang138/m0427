@@ -50,7 +50,6 @@ public class TimeServer {
           {
             ServerSocketChannel serverChannel=(ServerSocketChannel) key.channel();
             SocketChannel client=serverChannel.accept();
-            System.out.println("accepting connection from server :"+client);
             client.configureBlocking(false);
             client.register(selector, SelectionKey.OP_READ);
             System.out.println("Accepted new connection from client: " + client);
