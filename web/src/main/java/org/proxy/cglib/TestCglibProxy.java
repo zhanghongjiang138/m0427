@@ -11,7 +11,7 @@ public class TestCglibProxy {
     tt.say();
   }
   
-  public Object createProxy(Class c)
+  public Object createProxy(Class<?> c)
   {
     Enhancer e=new Enhancer();
     e.setSuperclass(c);
