@@ -46,8 +46,15 @@ import com.m0427.web.service.impl.UserServiceImpl;
  * <br>
  * <br>
  */
-public class BaseController {
+@Controller
+@RequestMapping("/*")
+public class WelcomeController {
   
+  @RequestMapping("index")
+  public String doLogin(Model model)
+  {
+    return "index";
+  }
   
   public void setBaseInfo(BaseInfo info)
   {

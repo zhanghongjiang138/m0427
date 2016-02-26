@@ -16,7 +16,7 @@ import com.m0427.web.service.UserService;
 @Controller
 @RequestMapping("/security/*")
 public class SecurityController extends BaseController {
-  private static final String REGISTER_PAGE="security/rigister";
+  private static final String REGISTER_PAGE="security/register";
   private static final String INDEX="index0";
 	
 	  @Resource

@@ -1,22 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="minmin">
-    <meta name="author" content="ajiang">
-
-    <title></title>
-
-    <link rel="stylesheet" href="/web/bootstrap/css/bootstrap.min.css">
-	
-
-    <link href="/web/css/carousel.css" rel="stylesheet">
+    <title>index</title>
+	<#include "header.html">
   </head>
-<!-- NAVBAR
-================================================== -->
 
   <body>
     <div class="navbar-wrapper">
@@ -25,7 +12,7 @@
           <div class="container">
             <div class="navbar-header">
               <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only">Toggle navigation1</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -67,7 +54,7 @@
             <div class="carousel-caption">
               <h1></h1>
               <p>Happy new year</p>
-              <p><a class="btn btn-lg btn-primary" href="manage/security/redirectRegister" role="button">Sign up</a></p>
+              <p><a class="btn btn-lg btn-primary" href="${rc.getContextPath()}/manage/security/redirectRegister" role="button">Sign up</a></p>
             </div>
           </div>
         </div>
@@ -114,22 +101,9 @@
           <img class="img-circle" src="" alt="Generic placeholder image" width="140" height="140">
         </div>
       </div>
-
-
-<!--       <hr class="featurette-divider">
-
-      FOOTER
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2015 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
-
-    </div>/.container
-
- -->
-
-
-	<script src="/web/bootstrap/js/jquery.min.js"></script>
-   	<script src="/web/bootstrap/js/bootstrap.min.js"></script>
   </body>
+  
+  <#include "footer.html">
+  
 </html>
+
