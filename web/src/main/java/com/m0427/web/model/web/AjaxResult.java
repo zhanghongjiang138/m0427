@@ -1,7 +1,8 @@
 /**
  * 
  */
-package com.m0427.web.model;
+package com.m0427.web.model.web;
+
 
 
 /**
@@ -19,13 +20,13 @@ public class AjaxResult {
 	
 	public AjaxResult(String message)
 	{
-		HttpStatus statusCode=HttpStatus.OK;
-		CallbackType type=CallbackType.Empty;
+		this.statusCode=HttpStatus.OK;
+	  this.callbackType=CallbackType.Empty;
 		this.message=message;
 	}
 
 	public int getStatusCode() {
-		return statusCode==null?HttpStatus.OK.getValue():statusCode.value;
+		return statusCode==null?HttpStatus.OK.getValue():statusCode.getValue();
 	}
 
 	public void setStatusCode(HttpStatus statusCode) {

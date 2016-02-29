@@ -46,10 +46,10 @@
 	
 	<!-- 验证成功与失败的处理 -->
 	<beans:bean id="failureHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
-        <beans:property name="defaultFailureUrl" value="/manage/login?error=1" />
+        <beans:property name="defaultFailureUrl" value="/manage/security/register?error=1" />
     </beans:bean>
 
-    <beans:bean id="successHandler" class="cn.evun.ime.platform.web.security.ImeAuthenticationSuccessHandler">
+    <beans:bean id="successHandler" class="org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler">
         <beans:property name="alwaysUseDefaultTargetUrl" value="true"/>
         <beans:property name="defaultTargetUrl" value="/manage/index"/>
     </beans:bean>
@@ -64,13 +64,6 @@
 
 	<!-- 项目实现的用户查询服务,将用户信息查询出来 -->
 	<beans:bean id="userDetailService" class="com.m0427.web.service.MyUserDetailService" />
-
-
-	</beans:bean>
-
-	<beans:bean id="accessDeniedHandler" class="cn.evun.ime.platform.web.security.AuthorityAccessDeniedHandlerImpl">
-		<beans:property name="errorPage" value="/manage/security/accessDenied" />
-	</beans:bean>
 	
 	<beans:bean id="securityContextUtil" class="cn.evun.ime.platform.security.SecurityContextUtil">
 	</beans:bean>
@@ -82,8 +75,6 @@
 	
 	<beans:bean id="httpSessionRequestCache" class="org.springframework.security.web.savedrequest.HttpSessionRequestCache"/>
 
-	
-	
 	
 	<beans:bean id="sessionRegistryImpl" class="org.springframework.security.core.session.SessionRegistryImpl" />
 	

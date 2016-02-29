@@ -8,8 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.m0427.web.model.AjaxResult;
 import com.m0427.web.model.Essay;
+import com.m0427.web.model.web.AjaxResult;
 import com.m0427.web.service.EssayService;
 
 /**

@@ -3,11 +3,11 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.m0427.web.dao.UserDao">
-	<select id="getUser" resultType="com.m0427.web.model.UserInfo">
+	<select id="getUser" resultType="com.m0427.web.model.security.UserInfo">
 		select * from userInfo where userName=#{userName} and password=#{password}
 	</select>
 	
-	<insert id="insertUser" parameterType="com.m0427.web.model.UserInfo" useGeneratedKeys="true" keyProperty="id">
+	<insert id="insertUser" parameterType="com.m0427.web.model.security.UserInfo" useGeneratedKeys="true" keyProperty="id">
 		insert into userInfo
 		(
 	    userName, 
@@ -27,7 +27,7 @@
 		
 	</insert>
 	
-	<select id="validateUser" resultType="com.m0427.web.model.UserInfo">
+	<select id="validateUser" resultType="com.m0427.web.model.security.UserInfo">
 	select * from userInfo where userName=#{userName}
 	
 	</select>

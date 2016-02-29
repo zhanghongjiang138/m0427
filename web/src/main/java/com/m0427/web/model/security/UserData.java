@@ -13,14 +13,14 @@
  * <br>
  * <br>
  */
-package com.m0427.web.model;
+package com.m0427.web.model.security;
 
 import java.util.Date;
 
 /**
 	用户基本表
  */
-public class UserInfo {
+public class UserData {
 	private Long id;
 	private String userName;
 	private String password;

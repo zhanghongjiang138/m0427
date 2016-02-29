@@ -1,4 +1,4 @@
-package com.m0427.web.model;
+package com.m0427.web.model.web;
 
 public enum CallbackType {
 	/**
@@ -6,7 +6,7 @@ public enum CallbackType {
 	   */
 	  Empty(""),
 	  /**
-	   * dwz客户端关闭当前tab
+	   * 客户端关闭当前tab
 	   */
 	  closeCurrent("closeCurrent"),
 	  /**

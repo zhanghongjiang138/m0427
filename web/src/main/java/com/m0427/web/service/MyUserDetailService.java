@@ -46,7 +46,7 @@ public class MyUserDetailService implements UserDetailsService{
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     if(StringUtils.isBlank(username))
       throw new UsernameNotFoundException("用户名为空!");
-    return null;
+    return userService.getUser(username);
   }
 
 }

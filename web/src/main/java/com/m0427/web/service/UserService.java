@@ -15,7 +15,8 @@
  */
 package com.m0427.web.service;
 
-import com.m0427.web.model.UserInfo;
+import com.m0427.web.model.security.UserData;
+import com.m0427.web.model.security.UserInfo;
 
 /**
  * <strong>Title : UserService.java<br></strong>
@@ -34,9 +35,9 @@ import com.m0427.web.model.UserInfo;
  */
 public interface UserService {
   
-   public UserInfo getUser(String userName,String password) throws Exception;
+   public UserInfo getUser(String userName);
 
-   public boolean insertUser(UserInfo user) throws Exception;
+   public boolean insertUser(UserData user);
    
    public UserInfo validateUser(String userName);
    

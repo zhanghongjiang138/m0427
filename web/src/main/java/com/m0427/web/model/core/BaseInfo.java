@@ -9,9 +9,9 @@ import java.util.Date;
 public class BaseInfo {
 	private String createUser;
 	private Date createDateTime;
-	private  String modifyUser;
+	private String modifyUser;
 	private Date modifyDateTime;
-	public String getCreateUser() {
+	public  String getCreateUser() {
 		return createUser;
 	}
 	public void setCreateUser(String createUser) {

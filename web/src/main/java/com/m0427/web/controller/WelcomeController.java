@@ -25,9 +25,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.m0427.web.model.AjaxResult;
-import com.m0427.web.model.BaseInfo;
-import com.m0427.web.model.UserInfo;
+import com.m0427.web.model.core.BaseInfo;
+import com.m0427.web.model.security.UserData;
+import com.m0427.web.model.web.AjaxResult;
 import com.m0427.web.service.UserService;
 import com.m0427.web.service.impl.UserServiceImpl;
 

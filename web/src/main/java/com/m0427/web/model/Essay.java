@@ -1,5 +1,7 @@
 package com.m0427.web.model;
 
+import com.m0427.web.model.core.BaseInfo;
+
 public class Essay extends BaseInfo {
 	private Long id;
 	private String title;

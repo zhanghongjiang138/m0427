@@ -1,4 +1,4 @@
-package com.m0427.web.model;
+package com.m0427.web.model.web;
 
 public enum HttpStatus {
 	 /**

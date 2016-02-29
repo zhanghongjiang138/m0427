@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.m0427.web.model.AjaxResult;
-import com.m0427.web.model.UserInfo;
+import com.m0427.web.model.security.UserData;
+import com.m0427.web.model.web.AjaxResult;
 import com.m0427.web.service.UserService;
 
 
@@ -38,14 +38,14 @@ public class SecurityController extends BaseController {
 	  public String accessDenied(Model model)
 	  {
 	    model.addAttribute("accessDenied", true);
-	    return "REGISTER_PAGE";
+	    return REGISTER_PAGE;
 	  }
 	  
 	  @RequestMapping("loginFailure")
     public String loginFailure(Model model)
     {
       model.addAttribute("loginFailure", true);
-      return "REGISTER_PAGE";
+      return REGISTER_PAGE;
     }
 	  
 	  @RequestMapping("loginSuccess")
@@ -56,7 +56,7 @@ public class SecurityController extends BaseController {
 	  
 	  @RequestMapping("register")
 	  @ResponseBody
-	  public AjaxResult index(UserInfo user,Model model) throws Exception
+	  public AjaxResult index(UserData user,Model model) throws Exception
 	  {
 	    if(StringUtils.isBlank(user.getUserName()))
 	    {

@@ -6,7 +6,8 @@
 	<context-param>
 	    <param-name>contextConfigLocation</param-name>
 	    <param-value>
-            classpath*:conf/web-core.xml
+            classpath*:conf/web-core.xml,
+            classpath*:conf/security-config.xml
 	    </param-value>
 	</context-param>
 	<context-param>

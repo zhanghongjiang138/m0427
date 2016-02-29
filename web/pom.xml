@@ -178,7 +178,6 @@
 			<type>pom</type>
 			<scope>compile</scope>
 		</dependency>
-		
 
 		<dependency>
 			<groupId>commons-net</groupId>
@@ -231,7 +230,7 @@
 				<configuration>
 					<webAppSourceDirectory>src/main/webapp</webAppSourceDirectory>
 					<scanIntervalSeconds>3</scanIntervalSeconds>
-					<contextPath>/m0427</contextPath>
+					<contextPath>/web</contextPath>
 					<connectors>
 						<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
 							<port>8085</port>
@@ -244,7 +243,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.4</version>
 				<configuration>
-					<warName>m0427</warName>
+					<warName>web</warName>
 					<webResources>
 						<resource>
 							<filtering>true</filtering>
