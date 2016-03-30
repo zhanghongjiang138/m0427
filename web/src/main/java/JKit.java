@@ -74,6 +74,7 @@ public class JKit extends JFrame {
       list.add(new Point(headX,headY-height));
     }
     
+    
     public void paint(Graphics g){
       super.paint(g);
       g.setColor(Color.RED);

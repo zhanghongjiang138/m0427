@@ -11,10 +11,14 @@ import java.net.URLConnection;
 import java.net.URLEncoder;
 
 public class URLConnnectionTest {
-  private static final String url="http://www.baidu.com";
+  private static final String url1="http://www.baidu.com";
+  private static final String url="http://127.0.0.1:8088/ime/manage/index#WAIT_TASK";
   public static void main(String[] args) throws IOException {
     URL u=new URL(url);
+    
     URLConnection uc=u.openConnection();
+    uc.setRequestProperty("Cookie", "jsessionid=ih16wouzlfm4"); 
+    uc.connect();
     BufferedInputStream bis=new BufferedInputStream(uc.getInputStream());
     for(int i=1;;i++)
     {
@@ -36,7 +40,7 @@ public class URLConnnectionTest {
     String s=null;
     while((s=reader.readLine())!=null)
     {
-      sb.append(s);
+      sb.append(s+"\n");
     }
     System.out.println();
     System.out.println(sb.toString());

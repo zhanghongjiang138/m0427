@@ -1,5 +1,8 @@
 package org.proxy.cglib;
+import java.lang.reflect.Method;
+
 import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.MethodProxy;
 
 
 public class TestCglibProxy {
