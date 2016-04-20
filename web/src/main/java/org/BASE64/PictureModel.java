@@ -143,11 +143,12 @@ public class PictureModel implements Model{
   }
 
 
-  @Override
-  public void insert() {
-    // TODO Auto-generated method stub
-    
-  }
+
+@Override
+public void insert(Point start) {
+	// TODO Auto-generated method stub
+	
+}
   
   
 

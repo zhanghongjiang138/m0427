@@ -30,6 +30,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/MLib"/>
-	<classpathentry kind="lib" path="D:/chrome downloads/ojdbc14 (1).jar"/>
+	<classpathentry kind="lib" path="D:/lib/ojdbc6.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

@@ -98,15 +98,15 @@ public class gridModel implements Model{
     int colIndex = 0;
     row = sheet.createRow(start.getRow()+1);
     //表头
-    for (Map<String,Object> map : columnMaps) {
+    /*for (Map<String,Object> map : ) {
       Cell cell = row.createCell(colIndex);
       cell.setCellValue(map.get("").toString());
       String ss=map.get(COLUMN_WIDTH).toString();
       sheet.setColumnWidth(colIndex, COLUMN_WIDTH_FACTOR*Float.valueOf(ss).intValue());
       fields[colIndex]=map.get(COLUMN_NAME).toString();
       colIndex++;
-    }
-
+    }*/
+    int rownum=0;
     //表内容
     for (Map<String,Object> model : dataList) {
       row = sheet.createRow(++rownum);
@@ -114,7 +114,7 @@ public class gridModel implements Model{
       for (colIndex = 0; colIndex < fields.length; colIndex++) {
             Cell cell = row.createCell(colIndex);
             Object value = model.get(fields[colIndex].toUpperCase());
-            setCellValue(cell, value);
+            /*setCellValue(cell, value);*/
       }
     }
   }

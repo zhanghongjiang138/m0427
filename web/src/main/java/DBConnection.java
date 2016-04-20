@@ -9,9 +9,9 @@ import java.util.Stack;
 public class DBConnection {
   
   private static final String DRIVERNAME="oracle.jdbc.driver.OracleDriver";  
-  private static final String URL="jdbc:oracle:thin:@10.86.87.135:1521:srm";  //test为数据库名称，1521为连接数据库的默认端口  
-  private static final String USER="ime2";  
-  private static final String PASSWORD="geelyime2";  
+  private static final String URL="jdbc:oracle:thin:@106.2.32.239:1521:mehr";  //test为数据库名称，1521为连接数据库的默认端口  
+  private static final String USER="ehrit";  
+  private static final String PASSWORD="Iv1KaqhfVBBb";  
     
   private static final int CONNECTINOSIZE=3; 
   
@@ -128,9 +128,9 @@ public class DBConnection {
 
   public static void main(String[] args) {
     Connection con=getConnection();
-    String sql="select * from test";
+    String sql="select * from ehr_employee_it_v where job_number= 'H7602' ";
     try {
-      String str=DBConnection.execute(con, sql);
+      String str=DBConnection.executeQuery(con, sql);
       System.out.println(str);
     } catch (SQLException e) {
       e.printStackTrace();

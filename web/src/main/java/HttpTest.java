@@ -35,14 +35,17 @@ public class HttpTest {
     try {       
         HttpRequester request = new HttpRequester();  
         request.setDefaultContentEncoding("utf-8");  
-        HttpRespons hr = request.sendGet("http://127.0.0.1:8088/ime/manage/index#QUALITY_MONTHREPORT");       
+        String url="http://127.0.0.1:8088/ime/manage/index#QUALITY_MONTHREPORT";
+        	
+        /*HttpRespons hr = request.sendGet(url);       
     
         System.out.println(hr.getUrlString());       
         System.out.println(hr.getProtocol());       
         System.out.println(hr.getHost());       
         System.out.println(hr.getPort());       
         System.out.println(hr.getContentEncoding());       
-        System.out.println(hr.getMethod());       
+        System.out.println(hr.getMethod());       */
+        System.out.println(url.substring(url.length()-4));       
                
     
     } catch (Exception e) {       
